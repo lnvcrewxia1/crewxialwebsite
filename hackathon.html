@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrewXIAl - Hackathons</title>
+    <style>
+        /* Same CSS as original file */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #2d2d5f 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Rest of the original CSS styles */
+        /* ... */
+
+        /* Popup styles same as volunteer popup */
+        .hackathon-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .hackathon-popup.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .hackathon-container {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 212, 255, 0.2);
+            position: relative;
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: #00d4ff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hackathon-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px dashed rgba(0, 212, 255, 0.3);
+        }
+
+        .hackathon-title {
+            font-size: 1.8rem;
+            color: #00d4ff;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .hackathon-content {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .benefits-list {
+            list-style-type: none;
+        }
+
+        .benefits-list li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.8rem;
+        }
+
+        .benefits-list li:before {
+            content: "✓";
+            color: #00d4ff;
+            position: absolute;
+            left: 0;
+        }
+
+        .hackathon-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .hackathon-btn-popup {
+            background: linear-gradient(45deg, #7b2cbf, #ff006e);
+            border: none;
+            border-radius: 15px;
+            padding: 1rem 2rem;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 0, 110, 0.3);
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .hackathon-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .hackathon-title {
+                font-size: 1.5rem;
+                text-align: center;
+            }
+
+            .hackathon-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hackathon Popup -->
+    <div class="hackathon-popup active" id="hackathonPopup">
+        <div class="hackathon-container">
+            <button class="close-popup" onclick="closeHackathonPopup()">×</button>
+            <h2 class="hackathon-title">Hackathons</h2>
+            
+            <div class="hackathon-section">
+                <h3 class="hackathon-title">Introduction</h3>
+                <p class="hackathon-content">
+                    Join exciting hackathons where innovation meets competition! CrewXIAl helps individuals and teams
+                    of all skill levels to come together and create cutting-edge solutions.The brightest minds to solve real-world problems in technology. Collaborate, 
+                    create, and compete in high-energy events.
+                </p>
+            </div>
+            
+            <div class="hackathon-section">
+                <h3 class="hackathon-title">Live Hackathons</h3>
+                <ul class="benefits-list hackathon-content">
+                    <li>Indian Army CyberSecurity Bug Hunting and Datathon being organised this month.</li>
+                    <li>Google Gen Al Exchange hackathon in september.</li>
+                    <li>NASA Space apps challenge in september.</li>
+                    <li>Microsoft Innoquest 2025 in september.</li>
+                    <li>Microsoft TroubleShoot Ideathon in september.</li>
+                    <li>NVIDIA and IIT Bombay Open India Hackathon in september.</li>
+                </ul>
+            </div>
+            
+            <div class="hackathon-section">
+                <h3 class="hackathon-title">Notification for upcoming Events</h3>
+                <p class="hackathon-content">
+                    Next hackathons to be held in year 2025 will be high-end and focused on placements with AI-powered solutions. 
+                    These will be held in september. Registration opens, Visit your any volunteer/Head volunteer or join the whatsapp group for more details.
+                </p>
+            </div>
+            
+            <div class="hackathon-section">
+                <h3 class="hackathon-title">Participation Guidelines</h3>
+                <p class="hackathon-content">
+                    Teams of 2-4 members can participate. All code must be written during the event. 
+                    Bring your own devices (laptops, etc.). Internet access will be provided. Judging 
+                    criteria includes innovation, technical complexity, and real-world applicability.
+                </p>
+            </div>
+            
+            <div class="hackathon-buttons">
+                <a href="https://chat.whatsapp.com/FnU7SyjupwR2Ko8QFToXdE" class="hackathon-btn-popup">Register Now</a>
+                <a href="#" class="hackathon-btn-popup goodies-btn">View Previous Winners</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Close function with animation and redirect
+    function closeHackathonPopup() {
+        const popup = document.getElementById('hackathonPopup');
+        popup.style.opacity = '0';
+        popup.style.visibility = 'hidden';
+        // Redirect after animation completes (300ms matches CSS transition)
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 0);
+    }
+    // Initialize popup on load
+    document.addEventListener('DOMContentLoaded', function() {
+        const popup = document.getElementById('hackathonPopup');
+        popup.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });</script
+    
+</body>
+</html>

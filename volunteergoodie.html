@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrewXIAl - Volunteer Goodies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #2d2d5f 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00d4ff, #7b2cbf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-image {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: contain;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+            animation: logoGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes logoGlow {
+            from {
+                box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+            }
+
+            to {
+                box-shadow: 0 6px 20px rgba(0, 212, 255, 0.6);
+            }
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+            padding: 2rem;
+        }
+
+        /* Goodies Section */
+        .goodies-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .goodies-title {
+            font-size: 2.5rem;
+            color: #ff006e;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow: 0 0 20px rgba(255, 0, 110, 0.6);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 20px rgba(255, 0, 110, 0.6);
+            }
+
+            to {
+                text-shadow: 0 0 30px rgba(255, 0, 110, 0.8);
+            }
+        }
+
+        .goodies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .goodie-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 0, 110, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .goodie-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 0, 110, 0.3);
+            border-color: #ff006e;
+        }
+
+        .goodie-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+        }
+
+        .goodie-name {
+            font-size: 1.2rem;
+            color: white;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        .goodie-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 15, 35, 0.9);
+            padding: 3rem 2rem 2rem;
+            border-top: 1px solid rgba(0, 212, 255, 0.3);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        @media (max-width: 768px) {
+            .goodies-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .goodies-title {
+                font-size: 2rem;
+            }
+
+            .goodie-image {
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .goodies-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .goodie-image {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="images/profile/logo.png" class="logo-image" alt="CrewXIAl Logo">
+                <span>CrewXIAl</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="goodies-section">
+            <h1 class="goodies-title">Volunteer Goodies</h1>
+
+            <div class="goodies-grid">
+                <div class="goodie-item">
+                    <img src="images/goodies/hoodie.png" class="goodie-image" alt="CrewXIAl Hoodie">
+                    <div class="goodie-name">Exclusive Hoodie</div>
+                    <div class="goodie-desc">Premium quality with our logo</div>
+                </div>
+
+                <div class="goodie-item">
+                    <img src="images/goodies/t-shirt.png" class="goodie-image" alt="Limited Edition T-Shirt">
+                    <div class="goodie-name">Limited T-Shirt</div>
+                    <div class="goodie-desc">Only for our volunteers</div>
+                </div>
+
+                <div class="goodie-item">
+                    <img src="images/goodies/mug.png" class="goodie-image" alt="Tech-Themed Mug">
+                    <div class="goodie-name">Tech Mug</div>
+                    <div class="goodie-desc">Perfect coding companion</div>
+                </div>
+
+                <div class="goodie-item">
+                    <img src="images/goodies/stickers.png" class="goodie-image" alt="Hacker Sticker Pack">
+                    <div class="goodie-name">Sticker Pack</div>
+                    <div class="goodie-desc">Decorate your devices</div>
+                </div>
+
+                <div class="goodie-item">
+                    <img src="images/goodies/notebook.png" class="goodie-image" alt="Developer Notebook">
+                    <div class="goodie-name">Dev Notebook</div>
+                    <div class="goodie-desc">For all your brilliant ideas</div>
+                </div>
+
+                <div class="goodie-item">
+                    <img src="images/goodies/bag.png" class="goodie-image" alt="Laptop Sleeve">
+                    <div class="goodie-name">Laptop Sleeve</div>
+                    <div class="goodie-desc">Protect your machine</div>
+                </div>
+
+                <div class="goodie-item">
+                    <img src="images/goodies/bottle.png" class="goodie-image" alt="Insulated Water Bottle">
+                    <div class="goodie-name">Water Bottle</div>
+                    <div class="goodie-desc">Stay hydrated</div>
+                </div>
+
+                <div class="goodie-item">
+                    <img src="images/goodies/cap.png" class="goodie-image" alt="Snapback Cap">
+                    <div class="goodie-name">Snapback Cap</div>
+                    <div class="goodie-desc">Style with our brand</div>
+                </div>
+
+                <div class="goodie-item">
+                    <img src="images/goodies/pin.png" class="goodie-image" alt="Collector's Pin">
+                    <div class="goodie-name">Collector's Pin</div>
+                    <div class="goodie-desc">Show your participation</div>
+                </div>
+
+                <div class="goodie-item">
+                    <img src="images/goodies/cable.png" class="goodie-image" alt="Braided USB Cable">
+                    <div class="goodie-name">USB Cable</div>
+                    <div class="goodie-desc">Durable and stylish</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-bottom">
+                <p>© 2025 CrewXIAl. All rights reserved. Equipping the next generation of tech innovators.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple animation for goodie items on scroll
+        document.addEventListener('DOMContentLoaded', function () {
+            const goodieItems = document.querySelectorAll('.goodie-item');
+
+            function animateOnScroll() {
+                goodieItems.forEach(item => {
+                    const rect = item.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }
+                });
+            }
+
+            // Initial setup
+            goodieItems.forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(30px)';
+                item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            });
+
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Initial call
+        });
+    </script>
+</body>
+
+</html>

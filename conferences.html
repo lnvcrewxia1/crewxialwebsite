@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrewXIAl - Conferences</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #2d2d5f 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .conferences-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .conferences-popup.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .conferences-container {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 212, 255, 0.2);
+            position: relative;
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: #00d4ff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .conferences-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px dashed rgba(0, 212, 255, 0.3);
+        }
+
+        .conferences-title {
+            font-size: 1.8rem;
+            color: #00d4ff;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .conferences-content {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .benefits-list {
+            list-style-type: none;
+        }
+
+        .benefits-list li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.8rem;
+        }
+
+        .benefits-list li:before {
+            content: "✓";
+            color: #00d4ff;
+            position: absolute;
+            left: 0;
+        }
+
+        .conferences-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .conferences-btn-popup {
+            background: linear-gradient(45deg, #7b2cbf, #ff006e);
+            border: none;
+            border-radius: 15px;
+            padding: 1rem 2rem;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 0, 110, 0.3);
+            text-align: center;
+        }
+
+        /* Application Notification Popup */
+        .notification-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(45deg, #ff006e, #7b2cbf);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(255, 0, 110, 0.5);
+            z-index: 3000;
+            text-align: center;
+            max-width: 80%;
+            display: none;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            animation: popupFadeIn 0.3s ease-out;
+        }
+
+        @keyframes popupFadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .notification-popup.active {
+            display: block;
+        }
+
+        .notification-popup p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .notification-popup button {
+            background: white;
+            color: #ff006e;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .notification-popup button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .notification-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2001;
+            display: none;
+        }
+
+        .notification-overlay.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .conferences-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .conferences-title {
+                font-size: 1.5rem;
+            }
+
+            .conferences-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="conferences-popup active" id="conferencesPopup">
+        <div class="conferences-container">
+            <button class="close-popup" onclick="closeConferencesPopup()">×</button>
+            <h2 class="conferences-title">Tech Conferences</h2>
+            
+            <div class="conferences-section">
+                <h3 class="conferences-title">Premier Tech Gatherings</h3>
+                <p class="conferences-content">
+                    CrewXIAl focuses on conferences that brings together the brightest minds in technology and cybersecurity. 
+                    Flagship events feature keynote speakers, panel discussions, workshops, and networking 
+                    opportunities that shape the future of the industry will be listed here as soon as notified.
+                </p>
+            </div>
+            
+            <div class="conferences-section">
+                <h3 class="conferences-title">Why Attend</h3>
+                <ul class="benefits-list conferences-content">
+                    <li>Learn from world-renowned experts and innovators</li>
+                    <li>Exclusive access to cutting-edge research and trends</li>
+                    <li>Networking with professionals and potential employers</li>
+                    <li>Hands-on workshops with latest technologies</li>
+                    <li>Career development and recruitment opportunities</li>
+                </ul>
+            </div>
+            
+            <div class="conferences-section">
+                <h3 class="conferences-title">Upcoming Conferences</h3>
+                <p class="conferences-content">
+                    <strong>CyberFuture Summit 2025:</strong> November 20-22 (Flagship annual event)<br>
+                    <strong>AI Security Symposium:</strong> March 15-16, 2026<br>
+                    <strong>Cloud Security Conference:</strong> June 5-6, 2026<br>
+                    <strong>Women in Tech Conference:</strong> September 10, 2026
+                </p>
+            </div>
+            
+            <div class="conferences-buttons">
+                <a href="#" class="conferences-btn-popup" id="registerBtn">Register Now</a>
+                <a href="#" class="conferences-btn-popup goodies-btn">View Conference Photos</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Notification Popup -->
+    <div class="notification-popup" id="applicationNotification">
+        <p>Application yet to be opened</p>
+        <button onclick="closeNotification()">OK</button>
+    </div>
+    <div class="notification-overlay" id="notificationOverlay"></div>
+
+    <script>
+    function closeConferencesPopup() {
+        const popup = document.getElementById('conferencesPopup');
+        popup.style.opacity = '0';
+        popup.style.visibility = 'hidden';
+        
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 300);
+    }
+
+    function showNotification() {
+        document.getElementById('applicationNotification').classList.add('active');
+        document.getElementById('notificationOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeNotification() {
+        document.getElementById('applicationNotification').classList.remove('active');
+        document.getElementById('notificationOverlay').classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const popup = document.getElementById('conferencesPopup');
+        popup.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        // Add event listener to the Register Now button
+        document.getElementById('registerBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            showNotification();
+        });
+    });
+    </script>
+</body>
+</html>
