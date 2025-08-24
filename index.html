@@ -1,0 +1,3011 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0f0f23">
+    <meta name="msapplication-navbutton-color" content="#0f0f23">
+    <title>CrewXIAl - Tech Event Management</title>
+    <link rel="icon" href="images/logos/crewxial_logo.jpg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #2d2d5f 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .floating-shape {
+            position: absolute;
+            background: linear-gradient(45deg, #00d4ff, #7b2cbf);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape1 {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape2 {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .shape3 {
+            width: 60px;
+            height: 60px;
+            top: 80%;
+            left: 60%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+
+
+
+
+
+        /* HackBhoomi button glow and animation */
+        .nav-menu-item.hackbhoomi-btn {
+            background: linear-gradient(45deg, #00d4ff, #7b2cbf);
+            border: 2px solid rgba(0, 212, 255, 0.5);
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4), 0 0 40px rgba(0, 212, 255, 0.2);
+            animation: hackbhoomiGlow 2s ease-in-out infinite alternate;
+            padding: 1rem 2rem;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        @keyframes hackbhoomiGlow {
+            0% {
+                box-shadow: 0 0 20px rgba(0, 212, 255, 0.4), 0 0 40px rgba(0, 212, 255, 0.2);
+                transform: scale(1);
+            }
+            100% {
+                box-shadow: 0 0 30px rgba(3, 69, 83, 0.8), 0 0 60px rgba(0, 212, 255, 0.4);
+                transform: scale(1.05);
+            }
+        }
+
+        .nav-menu-item.hackbhoomi-btn:hover {
+            background: linear-gradient(45deg, #7b2cbf, #00d4ff);
+            border-color: #00d4ff;
+            transform: scale(1.1);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.8), 0 0 80px rgba(0, 212, 255, 0.6);
+            animation-play-state: paused;
+        }
+
+        .nav-volunteer-btn {
+            background: linear-gradient(45deg, #7b2cbf, #ff006e);
+            border: none;
+            border-radius: 12px;
+            padding: 1rem 2rem;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 0, 110, 0.3);
+            animation: navVolunteerPulse 2s ease-in-out infinite;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        @keyframes navVolunteerPulse {
+            0%, 100% { 
+                transform: scale(1); 
+                box-shadow: 0 5px 20px rgba(255, 0, 110, 0.3);
+            }
+            50% { 
+                transform: scale(1.05); 
+                box-shadow: 0 8px 25px rgba(255, 0, 110, 0.4);
+            }
+        }
+
+        .nav-volunteer-btn:hover {
+            transform: translateY(-2px) scale(1.1);
+            box-shadow: 0 12px 30px rgba(255, 0, 110, 0.5);
+            animation-play-state: paused;
+        }
+
+        .nav-volunteer-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .nav-volunteer-btn:hover::before {
+            left: 100%;
+        }
+
+        .nav-menu-item {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-menu-item:hover::before {
+            left: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00d4ff, #7b2cbf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo-image {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: contain;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+            animation: logoGlow 2s ease-in-out infinite alternate;
+        }
+
+        /* Navigation Aryan Images */
+        .nav-aryan-images {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: nowrap;
+        }
+
+        .nav-aryan-photo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #00d4ff;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+            transition: all 0.3s ease;
+            animation: logoPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+            }
+        }
+
+        .nav-aryan-photo:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.6);
+            border-color: #7b2cbf;
+        }
+
+        /* Header Buttons */
+        .header-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1rem;
+            align-items: center;
+        }
+
+        /* Responsive header layout for different orientations */
+        @media (orientation: landscape) and (min-height: 600px) {
+            .nav-container {
+                flex-direction: row;
+                align-items: center;
+                gap: 2rem;
+            }
+
+            .nav-left {
+                flex-direction: row;
+                gap: 2rem;
+                align-items: center;
+            }
+
+            .header-buttons {
+                flex-direction: row;
+                gap: 1.5rem;
+                margin-top: 0;
+            }
+        }
+
+        /* Large screens and tablets */
+        @media (min-width: 1024px) {
+            .nav-container {
+                gap: 3rem;
+            }
+
+            .nav-left {
+                gap: 2.5rem;
+            }
+
+            .header-buttons {
+                gap: 2rem;
+            }
+
+            .nav-aryan-photo {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        /* Extra large screens */
+        @media (min-width: 1440px) {
+            .nav-container {
+                gap: 4rem;
+            }
+
+            .nav-left {
+                gap: 3rem;
+            }
+
+            .header-buttons {
+                gap: 2.5rem;
+            }
+
+            .nav-aryan-photo {
+                width: 110px;
+                height: 110px;
+            }
+        }
+
+        .header-buttons .nav-volunteer-btn,
+        .header-buttons .nav-menu-item.hackbhoomi-btn {
+            width: 220px;
+            height: 50px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .header-buttons .nav-volunteer-btn:hover,
+        .header-buttons .nav-menu-item.hackbhoomi-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            animation-play-state: paused;
+        }
+
+        .header-buttons .nav-volunteer-btn:active,
+        .header-buttons .nav-menu-item.hackbhoomi-btn:active {
+            transform: translateY(0) scale(0.95);
+        }
+
+        /* Header button glow effects */
+        .header-buttons .nav-volunteer-btn {
+            animation: headerVolunteerGlow 2s ease-in-out infinite alternate;
+        }
+
+        .header-buttons .nav-menu-item.hackbhoomi-btn {
+            animation: headerHackbhoomiGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes headerVolunteerGlow {
+            0% {
+                box-shadow: 0 0 15px rgba(255, 0, 110, 0.4), 0 0 30px rgba(255, 0, 110, 0.2);
+            }
+            100% {
+                box-shadow: 0 0 25px rgba(255, 0, 110, 0.8), 0 0 50px rgba(255, 0, 110, 0.4);
+            }
+        }
+
+        @keyframes headerHackbhoomiGlow {
+            0% {
+                box-shadow: 0 0 15px rgba(0, 212, 255, 0.4), 0 0 30px rgba(0, 212, 255, 0.2);
+            }
+            100% {
+                box-shadow: 0 0 25px rgba(0, 212, 255, 0.8), 0 0 50px rgba(0, 212, 255, 0.4);
+            }
+        }
+
+        @keyframes logoGlow {
+            from {
+                box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+            }
+            to {
+                box-shadow: 0 6px 20px rgba(0, 212, 255, 0.6);
+            }
+        }
+
+
+
+        /* Main Content */
+        main {
+            margin-top: 220px;
+            padding: 2rem;
+        }
+
+        /* Hero Container with Background Gallery */
+        .hero-container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            margin-top: 200px;
+            overflow: hidden;
+        }
+
+        /* Background Gallery Section */
+        .background-gallery {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .gallery-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            z-index: 1;
+            filter: brightness(0.8) contrast(1.1);
+        }
+
+        .gallery-image.active {
+            opacity: 1;
+        }
+
+        /* Transparent overlay for better text visibility */
+        .gallery-overlay-transparent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 15, 35, 0.3);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .gallery-indicators {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 20;
+        }
+
+        .gallery-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-indicator.active {
+            background: #00d4ff;
+            transform: scale(1.2);
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 6rem 2rem 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Responsive hero section */
+        @media (max-width: 480px) {
+            .hero-section {
+                padding: 4rem 1rem 2rem 1rem;
+                max-width: 100%;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .hero-section {
+                padding: 5rem 2rem 3rem 2rem;
+                max-width: 1000px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero-section {
+                padding: 7rem 2rem 5rem 2rem;
+                max-width: 1400px;
+            }
+        }
+
+        @media (min-width: 1440px) {
+            .hero-section {
+                padding: 8rem 3rem 6rem 3rem;
+                max-width: 1600px;
+            }
+        }
+
+        .hero-quote {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #00d4ff, #7b2cbf, #ff006e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.3;
+            min-height: 3.5rem;
+            border-right: 3px solid #00d4ff;
+            animation: blink 1s infinite;
+            position: relative;
+            z-index: 15;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Responsive hero quote */
+        @media (max-width: 480px) {
+            .hero-quote {
+                font-size: 1.8rem;
+                min-height: 2.5rem;
+                line-height: 1.4;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .hero-quote {
+                font-size: 2.2rem;
+                min-height: 3rem;
+                margin-bottom: 1.8rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero-quote {
+                font-size: 2.8rem;
+                min-height: 3.8rem;
+                margin-bottom: 2.2rem;
+            }
+        }
+
+        @media (min-width: 1440px) {
+            .hero-quote {
+                font-size: 3.2rem;
+                min-height: 4.2rem;
+                margin-bottom: 2.5rem;
+            }
+        }
+
+        @keyframes blink {
+            0%, 50% { border-right-color: #00d4ff; }
+            51%, 100% { border-right-color: transparent; }
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem auto;
+            max-width: 1000px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.1);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #00d4ff;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.6), 0 0 40px rgba(0, 212, 255, 0.4);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 20px rgba(0, 212, 255, 0.6), 0 0 40px rgba(0, 212, 255, 0.4);
+            }
+            to {
+                text-shadow: 0 0 30px rgba(0, 212, 255, 0.8), 0 0 60px rgba(0, 212, 255, 0.6);
+            }
+        }
+
+        .section-content {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            text-align: center;
+            opacity: 0.9;
+        }
+
+        /* Notification Box */
+        .notification-box {
+            background: #1a1a3e;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 4rem auto;
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 25;
+        }
+
+        /* Responsive notification box */
+        @media (max-width: 480px) {
+            .notification-box {
+                margin: 3rem 1rem;
+                padding: 1.2rem;
+                border-radius: 12px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .notification-box {
+                max-width: 700px;
+                padding: 2rem;
+                margin: 5rem auto;
+            }
+        }
+
+        @media (min-width: 1440px) {
+            .notification-box {
+                max-width: 800px;
+                padding: 2.5rem;
+                margin: 6rem auto;
+            }
+        }
+
+        .notification-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            animation: slideIn 3s ease infinite;
+        }
+
+        @keyframes slideIn {
+            0%, 100% { opacity: 0; transform: translateX(-100%); }
+            20%, 80% { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 6rem auto;
+            max-width: 1000px;
+            position: relative;
+            z-index: 25;
+        }
+
+        /* Responsive action buttons for different screen sizes */
+        @media (max-width: 480px) {
+            .action-buttons {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin: 4rem 1rem;
+                padding: 0 0.5rem;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .action-buttons {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2.5rem;
+                margin: 5rem auto;
+                max-width: 800px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .action-buttons {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 3rem;
+                margin: 7rem auto;
+                max-width: 1200px;
+            }
+        }
+
+        @media (min-width: 1440px) {
+            .action-buttons {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 4rem;
+                margin: 8rem auto;
+                max-width: 1400px;
+            }
+        }
+
+        .action-btn {
+            background: #1a1a3e;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            word-wrap: break-word;
+            hyphens: auto;
+        }
+
+        /* Responsive action button text sizing */
+        @media (max-width: 480px) {
+            .action-btn {
+                padding: 1.5rem;
+                font-size: 1rem;
+                line-height: 1.4;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .action-btn {
+                padding: 1.8rem;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .action-btn {
+                padding: 2.2rem;
+                font-size: 1.4rem;
+            }
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .action-btn:hover::before {
+            left: 100%;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+            border-color: #00d4ff;
+        }
+
+        .volunteer-btn {
+            background: linear-gradient(45deg, #7b2cbf, #ff006e);
+            border: none;
+            border-radius: 15px;
+            padding: 1.5rem 3rem;
+            color: white;
+            font-size: 1.4rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 4rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 0, 110, 0.3);
+            position: relative;
+            overflow: hidden;
+            animation: heroVolunteerGlow 2s ease-in-out infinite alternate;
+            z-index: 25;
+        }
+
+        /* Responsive volunteer button */
+        @media (max-width: 480px) {
+            .volunteer-btn {
+                padding: 1.2rem 2rem;
+                font-size: 1.2rem;
+                margin: 3rem auto;
+                width: 90%;
+                max-width: 280px;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .volunteer-btn {
+                padding: 1.8rem 3.5rem;
+                font-size: 1.5rem;
+                margin: 5rem auto;
+                max-width: 350px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .volunteer-btn {
+                padding: 2rem 4rem;
+                font-size: 1.6rem;
+                margin: 6rem auto;
+                max-width: 400px;
+            }
+        }
+
+        .volunteer-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(255, 0, 110, 0.5);
+            animation-play-state: paused;
+        }
+
+        .volunteer-btn:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+
+        @keyframes heroVolunteerGlow {
+            0% {
+                box-shadow: 0 0 20px rgba(255, 0, 110, 0.4), 0 0 40px rgba(255, 0, 110, 0.2);
+            }
+            100% {
+                box-shadow: 0 0 30px rgba(255, 0, 110, 0.8), 0 0 60px rgba(255, 0, 110, 0.4);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .volunteer-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .volunteer-btn:hover::before {
+            left: 100%;
+        }
+
+        .volunteer-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(255, 0, 110, 0.5);
+            animation-play-state: paused;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 15, 35, 0.9);
+            padding: 4rem 2rem 2rem;
+            border-top: 1px solid rgba(0, 212, 255, 0.3);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            margin-bottom: 3rem;
+        }
+
+        .footer-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00d4ff;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        /* Management Section */
+        .management-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .management-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .management-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 212, 255, 0.2);
+            border-color: #00d4ff;
+        }
+
+        .management-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 3px solid #00d4ff;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .management-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .management-role {
+            color: #00d4ff;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .contact-btn {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: #00d4ff;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Head Volunteers Section */
+        .volunteers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .volunteer-card {
+            background: linear-gradient(45deg, rgba(0, 212, 255, 0.1), rgba(123, 44, 191, 0.1));
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .volunteer-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .volunteer-card:hover::before {
+            left: 100%;
+        }
+
+        .volunteer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 212, 255, 0.3);
+            border-color: #00d4ff;
+        }
+
+        .volunteer-photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 2px solid #7b2cbf;
+            box-shadow: 0 0 15px rgba(123, 44, 191, 0.4);
+            flex-shrink: 0;
+        }
+
+        .volunteer-info {
+            flex: 1;
+        }
+
+        .volunteer-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 0.3rem;
+        }
+
+        .volunteer-position {
+            color: #00d4ff;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .social-link {
+            color: #00d4ff;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            transform: scale(1.2);
+            color: #7b2cbf;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Top Popup Notification */
+        .top-popup {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: linear-gradient(45deg, rgba(0, 212, 255, 0.95), rgba(123, 44, 191, 0.95));
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+            z-index: 1500;
+            opacity: 0;
+            animation: popupSlide 3s ease-in-out;
+            border: 2px solid rgba(0, 212, 255, 0.5);
+        }
+
+        @keyframes popupSlide {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-100px);
+            }
+            15%, 85% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-100px);
+            }
+        }
+
+        /* Volunteer Program Popup */
+        .volunteer-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .volunteer-popup.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .volunteer-container {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 212, 255, 0.2);
+            position: relative;
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: #00d4ff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-popup:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .volunteer-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px dashed rgba(0, 212, 255, 0.3);
+        }
+
+        .volunteer-section:last-child {
+            border-bottom: none;
+        }
+
+        .volunteer-title {
+            font-size: 1.8rem;
+            color: #00d4ff;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .volunteer-content {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .benefits-list {
+            list-style-type: none;
+        }
+
+        .benefits-list li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.8rem;
+        }
+
+        .benefits-list li:before {
+            content: "✓";
+            color: #00d4ff;
+            position: absolute;
+            left: 0;
+        }
+
+        .volunteer-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .volunteer-btn-popup {
+            background: linear-gradient(45deg, #7b2cbf, #ff006e);
+            border: none;
+            border-radius: 15px;
+            padding: 1rem 2rem;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 0, 110, 0.3);
+            text-align: center;
+        }
+
+        .volunteer-btn-popup:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 0, 110, 0.5);
+        }
+        .volunteer-card-pink {
+            background: linear-gradient(45deg, rgba(255, 0, 110, 0.1), rgba(123, 44, 191, 0.1));
+            border: 2px solid rgba(255, 0, 110, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: pinkGlow 2s ease-in-out infinite alternate;
+        }
+        @keyframes pinkGlow {
+            from {
+                box-shadow: 0 0 10px rgba(255, 0, 110, 0.3);
+                border-color: rgba(255, 0, 110, 0.3);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(255, 0, 110, 0.6);
+                border-color: rgba(255, 0, 110, 0.6);
+            }
+        }
+        .volunteer-photo-pink {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 2px solid #ff006e;
+            box-shadow: 0 0 15px rgba(255, 0, 110, 0.4);
+            flex-shrink: 0;
+        }
+        .goodies-btn {
+            background: linear-gradient(45deg, #00d4ff, #7b2cbf);
+        }
+        /* Enhanced Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hero-container {
+                min-height: 80vh;
+                margin-top: 220px;
+            }
+            
+            .gallery-indicators {
+                bottom: 1rem;
+                gap: 0.8rem;
+            }
+            
+            .gallery-indicator {
+                width: 10px;
+                height: 10px;
+            }
+            
+            .hero-quote {
+                font-size: 1.8rem;
+                line-height: 1.4;
+                padding: 0 1rem;
+            }
+
+            .action-buttons {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin: 5rem 1rem;
+                padding: 0 1rem;
+            }
+            
+            .action-btn {
+                padding: 1.5rem;
+                font-size: 1.1rem;
+                margin: 0;
+            }
+            
+            .notification-box {
+                margin: 3.5rem 1rem;
+                padding: 1.2rem;
+                border-radius: 12px;
+            }
+            
+            .notification-text {
+                font-size: 1rem;
+                line-height: 1.4;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .content-section {
+                padding: 2rem 1rem;
+                margin: 2rem 1rem;
+                border-radius: 15px;
+            }
+
+            .volunteer-container {
+                padding: 2rem 1rem;
+                margin: 1rem;
+                width: 95%;
+                max-height: 85vh;
+            }
+
+            .volunteer-title {
+                font-size: 1.5rem;
+            }
+
+            .volunteer-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            
+            
+            .nav-right {
+                align-items: center;
+                justify-content: center;
+            }
+
+            .nav-volunteer-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+                white-space: nowrap;
+                min-width: 180px;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+                margin-bottom: 0.3rem;
+            }
+
+
+
+            .logo-image {
+                width: 56px;
+                height: 56px;
+            }
+
+            .nav-aryan-images {
+                gap: 0.8rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-aryan-photo {
+                width: 70px;
+                height: 70px;
+            }
+
+            .header-buttons {
+                margin-top: 0.8rem;
+                gap: 0.8rem;
+            }
+
+            .header-buttons .nav-volunteer-btn,
+            .header-buttons .nav-menu-item.hackbhoomi-btn {
+                width: 180px;
+                height: 45px;
+                padding: 0;
+                font-size: 0.85rem;
+                border-radius: 22.5px;
+            }
+
+
+
+            /* Mobile footer optimizations */
+            .management-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            .management-card {
+                padding: 1.5rem;
+                margin: 0;
+            }
+
+            .volunteers-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 0 1rem;
+            }
+
+            .volunteer-card {
+                padding: 1.2rem;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .volunteer-photo, .volunteer-photo-pink {
+                width: 80px;
+                height: 80px;
+                margin: 0 auto 1rem;
+            }
+
+            .volunteer-info {
+                text-align: center;
+            }
+
+            /* Mobile hero section */
+            .hero-section {
+                padding: 4rem 1rem 2rem 1rem;
+            }
+
+            /* Mobile action buttons */
+            .volunteer-btn {
+                padding: 1.2rem 2rem;
+                font-size: 1.2rem;
+                margin: 4rem auto;
+                width: 90%;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-container {
+                min-height: 70vh;
+                margin-top: 240px;
+            }
+            
+            .gallery-indicators {
+                bottom: 0.8rem;
+                gap: 0.6rem;
+            }
+            
+            .gallery-indicator {
+                width: 8px;
+                height: 8px;
+            }
+            
+            .nav-container {
+                padding: 0 0.5rem;
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+
+            .nav-left, .nav-right {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .nav-right {
+                justify-content: center;
+                align-items: center;
+            }
+
+            .nav-volunteer-btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.8rem;
+                text-align: center;
+                min-width: 160px;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+                justify-content: center;
+                margin-bottom: 0.3rem;
+            }
+
+
+
+            .header-buttons {
+                margin-top: 0.6rem;
+                gap: 0.6rem;
+            }
+
+            .header-buttons .nav-volunteer-btn,
+            .header-buttons .nav-menu-item.hackbhoomi-btn {
+                width: 160px;
+                height: 40px;
+                padding: 0;
+                font-size: 0.8rem;
+                border-radius: 20px;
+            }
+
+            .logo-image {
+                width: 42px;
+                height: 42px;
+            }
+
+            .nav-aryan-images {
+                gap: 0.6rem;
+                justify-content: center;
+            }
+
+            .nav-aryan-photo {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .volunteer-btn {
+                padding: 1rem 1.5rem;
+                font-size: 1.1rem;
+                margin: 3.5rem auto;
+                width: 95%;
+            }
+            
+            .action-buttons {
+                gap: 1rem;
+                margin: 4rem 0.5rem;
+                padding: 0 0.5rem;
+            }
+            
+            .action-btn {
+                padding: 1.2rem;
+                font-size: 1rem;
+                border-radius: 12px;
+            }
+            
+            .notification-box {
+                margin: 3rem 0.5rem;
+                padding: 1rem;
+                border-radius: 10px;
+            }
+            
+            .notification-text {
+                font-size: 0.9rem;
+                line-height: 1.3;
+            }
+            
+            .hero-section {
+                padding: 3rem 0.5rem 2rem 0.5rem;
+            }
+            
+            .hero-quote {
+                font-size: 1.5rem;
+                min-height: 2.5rem;
+                padding: 0 0.5rem;
+            }
+
+            /* Mobile content sections */
+            .content-section {
+                padding: 1.5rem 0.8rem;
+                margin: 1.5rem 0.5rem;
+                border-radius: 12px;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+                margin-bottom: 1rem;
+            }
+
+            .section-content {
+                font-size: 1rem;
+                line-height: 1.5;
+            }
+
+            /* Mobile footer */
+            .footer-content {
+                padding: 0 0.5rem;
+            }
+
+            .footer-title {
+                font-size: 1.6rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .management-card {
+                padding: 1.2rem;
+                margin-bottom: 1rem;
+            }
+
+            .management-photo {
+                width: 80px;
+                height: 80px;
+            }
+
+            .management-name {
+                font-size: 1.2rem;
+            }
+
+            .management-role {
+                font-size: 0.9rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .contact-btn {
+                padding: 0.8rem 1.2rem;
+                font-size: 0.9rem;
+                text-align: center;
+            }
+
+
+
+            /* Mobile volunteer popup */
+            .volunteer-container {
+                padding: 1.5rem 1rem;
+                margin: 0.5rem;
+                width: 98%;
+                max-height: 90vh;
+                border-radius: 15px;
+            }
+
+            .volunteer-title {
+                font-size: 1.4rem;
+                margin-bottom: 1rem;
+            }
+
+            .volunteer-content {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+
+            .volunteer-buttons {
+                flex-direction: column;
+                gap: 1rem;
+                margin-top: 1.5rem;
+            }
+
+            .volunteer-btn-popup {
+                padding: 1rem 1.5rem;
+                font-size: 1rem;
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        /* Extra small screens and landscape orientation */
+        @media (max-width: 360px) {
+            .hero-container {
+                min-height: 60vh;
+                margin-top: 220px;
+            }
+            
+            .gallery-indicators {
+                bottom: 0.5rem;
+                gap: 0.4rem;
+            }
+            
+            .gallery-indicator {
+                width: 6px;
+                height: 6px;
+            }
+            
+            .hero-quote {
+                font-size: 1.3rem;
+                min-height: 2rem;
+            }
+            
+            .volunteer-btn {
+                padding: 0.8rem 1.2rem;
+                font-size: 1rem;
+                margin: 1rem auto;
+            }
+            
+            .action-btn {
+                padding: 1rem;
+                font-size: 0.9rem;
+                border-radius: 10px;
+            }
+
+            .nav-container {
+                padding: 0 0.3rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .logo-image {
+                width: 38px;
+                height: 38px;
+            }
+
+            .nav-aryan-photo {
+                width: 55px;
+                height: 55px;
+            }
+
+            .content-section {
+                padding: 1.2rem 0.6rem;
+                margin: 1.2rem 0.3rem;
+                border-radius: 10px;
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+            }
+
+            .section-content {
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Landscape orientation on mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero-container {
+                min-height: 100vh;
+                margin-top: 180px;
+            }
+            
+            .gallery-indicators {
+                bottom: 0.5rem;
+            }
+            
+            .hero-section {
+                padding: 2rem 1rem 1rem 1rem;
+            }
+            
+            .notification-box {
+                margin: 3rem auto;
+            }
+            
+            .action-buttons {
+                margin: 3.5rem auto;
+            }
+
+            .nav-container {
+                flex-direction: row;
+                padding: 0.5rem 1rem;
+            }
+
+            .nav-left, .nav-right {
+                width: auto;
+            }
+
+            .nav-right {
+                justify-content: center;
+                align-items: center;
+            }
+
+            .header-buttons {
+                flex-direction: row;
+                gap: 1rem;
+                margin-top: 0.5rem;
+            }
+
+            .volunteer-btn {
+                margin: 3rem auto;
+            }
+        }
+
+        /* Portrait orientation optimizations */
+        @media (orientation: portrait) and (min-height: 800px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .nav-left {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .header-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Square screen optimizations */
+        @media (aspect-ratio: 1/1) {
+            .nav-container {
+                flex-direction: row;
+                gap: 2rem;
+            }
+
+            .nav-left {
+                flex-direction: row;
+                gap: 1.5rem;
+            }
+
+            .header-buttons {
+                flex-direction: row;
+                gap: 1.5rem;
+            }
+
+            .action-buttons {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Ultra-wide screen support */
+        @media (min-width: 1920px) {
+            .nav-container {
+                gap: 5rem;
+            }
+
+            .nav-left {
+                gap: 4rem;
+            }
+
+            .header-buttons {
+                gap: 3rem;
+            }
+
+            .nav-aryan-photo {
+                width: 120px;
+                height: 120px;
+            }
+
+            .action-buttons {
+                max-width: 1600px;
+                gap: 5rem;
+            }
+        }
+
+        /* Touch-friendly improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .header-buttons .nav-volunteer-btn,
+            .header-buttons .nav-menu-item.hackbhoomi-btn,
+            .action-btn,
+            .volunteer-btn,
+            .volunteer-btn-popup,
+            .contact-btn,
+            .gallery-indicator {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+
+
+            .gallery-indicator {
+                min-height: 20px;
+                min-width: 20px;
+            }
+
+            .header-buttons .nav-volunteer-btn,
+            .header-buttons .nav-menu-item.hackbhoomi-btn {
+                min-height: 50px;
+                min-width: 220px;
+            }
+
+            .action-btn,
+            .volunteer-btn {
+                padding: 1.5rem;
+            }
+
+            .volunteer-btn-popup {
+                padding: 1.2rem;
+            }
+
+            .contact-btn {
+                padding: 0.8rem 1.2rem;
+            }
+        }
+
+        /* High DPI displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .logo-image,
+            .nav-aryan-photo,
+            .management-photo,
+            .volunteer-photo,
+            .volunteer-photo-pink {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+            }
+        }
+
+        /* Dark mode support for mobile */
+        @media (prefers-color-scheme: dark) {
+            .volunteer-container {
+                background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 100%);
+            }
+        }
+
+        /* Reduced motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Mobile accessibility improvements */
+        @media (max-width: 768px) {
+            /* Ensure sufficient contrast and readability */
+            .hero-quote {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            }
+
+            .section-title {
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+            }
+
+            /* Improve button accessibility */
+            .action-btn,
+            .volunteer-btn,
+            .volunteer-btn-popup,
+            .contact-btn {
+                position: relative;
+                overflow: hidden;
+            }
+
+            /* Add focus indicators for mobile */
+            .action-btn:focus,
+            .volunteer-btn:focus,
+            .volunteer-btn-popup:focus,
+            .contact-btn:focus {
+                outline: 3px solid #00d4ff;
+                outline-offset: 2px;
+            }
+
+            /* Mobile-friendly text selection */
+            ::selection {
+                background: rgba(0, 212, 255, 0.3);
+                color: white;
+            }
+
+            /* Mobile-friendly scrollbar */
+            ::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 4px;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: rgba(0, 212, 255, 0.5);
+                border-radius: 4px;
+            }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: rgba(0, 212, 255, 0.7);
+            }
+        }
+
+        /* Mobile-specific loading states */
+        @media (max-width: 768px) {
+            .loading {
+                opacity: 0.6;
+                pointer-events: none;
+            }
+
+            .loading::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 20px;
+                height: 20px;
+                margin: -10px 0 0 -10px;
+                border: 2px solid #00d4ff;
+                border-top: 2px solid transparent;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        }
+
+        /* Low battery optimizations */
+        .low-battery .floating-shape {
+            animation-duration: 20s;
+        }
+
+        .low-battery .bg-animation {
+            opacity: 0.02;
+        }
+
+        .low-battery .content-section {
+            animation: none;
+        }
+
+        /* Landscape mode optimizations */
+        .landscape .hero-container {
+            min-height: 80vh;
+        }
+
+        .landscape .hero-section {
+            padding: 0.5rem;
+        }
+
+        .landscape .action-buttons {
+            margin: 0.5rem auto;
+            gap: 0.8rem;
+        }
+
+        .landscape .volunteer-btn {
+            margin: 0.5rem auto;
+            padding: 0.8rem 1.5rem;
+        }
+
+        /* Mobile-specific utility classes */
+        .mobile-only {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-only {
+                display: block;
+            }
+
+            .desktop-only {
+                display: none;
+            }
+        }
+
+        /* Mobile-friendly focus management */
+        @media (max-width: 768px) {
+            .skip-link {
+                position: absolute;
+                top: -40px;
+                left: 6px;
+                background: #00d4ff;
+                color: #0f0f23;
+                padding: 8px;
+                text-decoration: none;
+                border-radius: 4px;
+                z-index: 10000;
+            }
+
+            .skip-link:focus {
+                top: 6px;
+            }
+        }
+
+        /* Mobile-specific animations */
+        @media (max-width: 768px) {
+            .floating-shape {
+                animation: floatMobile 8s ease-in-out infinite;
+            }
+
+            @keyframes floatMobile {
+                0%, 100% { transform: translateY(0px) rotate(0deg) scale(0.8); }
+                50% { transform: translateY(-15px) rotate(90deg) scale(1); }
+            }
+
+            .bg-animation {
+                opacity: 0.05;
+            }
+
+            .content-section {
+                animation: slideUpMobile 0.6s ease-out;
+            }
+
+            @keyframes slideUpMobile {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* Mobile-specific layout improvements */
+            .hero-container {
+                position: relative;
+            }
+
+            .background-gallery {
+                position: absolute;
+            }
+
+            /* Mobile gallery indicators */
+            .gallery-indicators {
+                position: absolute;
+                bottom: 1rem;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 10;
+            }
+
+            /* Mobile notification positioning */
+            .notification-box {
+                position: relative;
+                z-index: 5;
+                margin: 1rem;
+            }
+
+            /* Mobile action buttons layout */
+            .action-buttons {
+                position: relative;
+                z-index: 5;
+            }
+
+            /* Mobile volunteer button */
+            .volunteer-btn {
+                position: relative;
+                z-index: 5;
+            }
+        }
+
+        /* Additional mobile optimizations */
+        @media (max-width: 480px) {
+            /* Mobile header optimizations */
+            header {
+                padding: 0.8rem 0.5rem;
+            }
+
+            /* Mobile logo adjustments */
+            .logo {
+                flex-direction: column;
+                gap: 0.3rem;
+                text-align: center;
+            }
+
+            /* Mobile navigation images */
+            .nav-aryan-images {
+                justify-content: center;
+                margin: 0.5rem 0;
+            }
+
+            /* Mobile content spacing */
+            main {
+                margin-top: 220px;
+                padding: 1rem 0.5rem;
+            }
+
+            /* Mobile footer spacing */
+            footer {
+                padding: 2rem 0.5rem 1rem;
+                margin-top: 2rem;
+            }
+
+            /* Mobile management cards */
+            .management-card {
+                margin-bottom: 1.5rem;
+                border-radius: 12px;
+            }
+
+            /* Mobile volunteer cards */
+            .volunteer-card, .volunteer-card-pink {
+                margin-bottom: 1rem;
+                border-radius: 12px;
+            }
+        }
+
+        /* Mobile landscape optimizations */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero-container {
+                min-height: 100vh;
+            }
+
+            .hero-section {
+                padding: 2rem 1rem 1rem 1rem;
+            }
+
+            .notification-box {
+                margin: 0.5rem 1rem;
+            }
+
+            .action-buttons {
+                margin: 1rem auto;
+                gap: 1rem;
+            }
+
+            .volunteer-btn {
+                margin: 1rem auto;
+                padding: 1rem 2rem;
+            }
+
+            /* Adjust header for landscape */
+            header {
+                padding: 0.5rem 1rem;
+            }
+
+            .nav-container {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        /* Mobile performance optimizations */
+        @media (max-width: 768px) {
+            /* Reduce animations on mobile for better performance */
+            .floating-shape {
+                animation-duration: 10s;
+            }
+
+            /* Optimize background gallery for mobile */
+            .gallery-image {
+                transition: opacity 1s ease-in-out;
+            }
+
+            /* Mobile-friendly hover effects */
+            .action-btn:hover,
+            .volunteer-btn:hover,
+            .volunteer-btn-popup:hover {
+                transform: translateY(-3px);
+            }
+
+            /* Mobile-friendly card hover effects */
+            .management-card:hover,
+            .volunteer-card:hover,
+            .volunteer-card-pink:hover {
+                transform: translateY(-3px);
+            }
+        }
+
+        /* Platform-specific optimizations */
+        @media (max-width: 320px) {
+            /* Extra small mobile devices */
+            .nav-container {
+                padding: 0 0.3rem;
+            }
+
+            .logo {
+                font-size: 1.1rem;
+            }
+
+            .nav-aryan-photo {
+                width: 50px;
+                height: 50px;
+            }
+
+            .header-buttons .nav-volunteer-btn,
+            .header-buttons .nav-menu-item.hackbhoomi-btn {
+                width: 140px;
+                height: 35px;
+                font-size: 0.75rem;
+                border-radius: 17.5px;
+            }
+        }
+
+        /* Tablet landscape optimizations */
+        @media (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
+            .nav-container {
+                flex-direction: row;
+                gap: 2.5rem;
+            }
+
+            .nav-left {
+                flex-direction: row;
+                gap: 2rem;
+            }
+
+            .header-buttons {
+                flex-direction: row;
+                gap: 1.5rem;
+            }
+        }
+
+        /* High DPI mobile devices */
+        @media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {
+            .nav-aryan-photo,
+            .logo-image {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+            }
+        }
+
+        /* Foldable device support */
+        @media (min-width: 280px) and (max-width: 319px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .header-buttons .nav-volunteer-btn,
+            .header-buttons .nav-menu-item.hackbhoomi-btn {
+                width: 130px;
+                height: 35px;
+                font-size: 0.7rem;
+                border-radius: 17.5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Popup -->
+    <div class="top-popup" id="topPopup">
+        📋 Scroll down for Volunteer program
+    </div>
+
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-shape shape1"></div>
+        <div class="floating-shape shape2"></div>
+        <div class="floating-shape shape3"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="logo">
+                    <span>CrewXIAL</span>
+                </div>
+                <div class="nav-aryan-images">
+                    <img src="images/logos/crewxial_logo.jpg" class="nav-aryan-photo" alt="CrewXIAL Logo">
+                    <img src="images/logos/invertis_logo.jpeg" class="nav-aryan-photo" alt="Invertis University">
+                    <img src="images/logos/incubation_logo.png" class="nav-aryan-photo" alt="Incubation Center">
+                    <img src="images/logos/abhiruchi_logo.png" class="nav-aryan-photo" alt="Abhiruchi Invertis">
+                </div>
+                <div class="header-buttons">
+                    <a href="#" class="nav-volunteer-btn" onclick="showVolunteerPopup()">Apply for Volunteer</a>
+                    <a href="hackathon.html" class="nav-menu-item hackbhoomi-btn">Participate in HackBhoomi</a>
+                </div>
+            </div>
+            <div class="nav-right">
+            </div>
+        </div>
+    </header>
+
+
+
+    <!-- Hero Section with Background Gallery -->
+    <section class="hero-container">
+        <!-- Background Gallery Section -->
+        <section class="background-gallery">
+            <img src="images/background/image1.jpg" class="gallery-image active" alt="Gallery Image 1">
+            <img src="images/background/image2.jpg" class="gallery-image" alt="Gallery Image 2">
+            <img src="images/background/image3.jpeg" class="gallery-image" alt="Gallery Image 3">
+            <img src="images/background/image4.jpeg" class="gallery-image" alt="Gallery Image 4">
+            <img src="images/background/image5.jpeg" class="gallery-image" alt="Gallery Image 5">
+            <img src="images/background/image6.jpeg" class="gallery-image" alt="Gallery Image 6">
+            <img src="images/background/image7.jpeg" class="gallery-image" alt="Gallery Image 7">
+            <img src="images/background/image8.jpeg" class="gallery-image" alt="Gallery Image 8">
+            
+            <!-- Transparent overlay for better text visibility -->
+            <div class="gallery-overlay-transparent"></div>
+            
+            <div class="gallery-indicators">
+                <div class="gallery-indicator active" data-index="0"></div>
+                <div class="gallery-indicator" data-index="1"></div>
+                <div class="gallery-indicator" data-index="2"></div>
+                <div class="gallery-indicator" data-index="3"></div>
+                <div class="gallery-indicator" data-index="4"></div>
+                <div class="gallery-indicator" data-index="5"></div>
+                <div class="gallery-indicator" data-index="6"></div>
+                <div class="gallery-indicator" data-index="7"></div>
+            </div>
+        </section>
+        
+        <section class="hero-section">
+            <h1 class="hero-quote" id="heroQuote"></h1>
+        </section>
+
+        <div class="notification-box">
+            <div class="notification-text">🏆HackBhoomi 2025 is live! Participate now!</div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="https://chat.whatsapp.com/LLpww3exi5wC5oCXCsWum6" class="action-btn">
+                <div>📢Don't have a team to participate in HackBhoomi 2025?</div>
+            </a>
+            <a href="events.html" class="action-btn">
+                <div>🎯 Events</div>
+            </a>
+            <a href="webinars.html" class="action-btn">
+                <div>💻 Webinars</div>
+            </a>
+        </div>
+
+        <a href="#" class="volunteer-btn" onclick="showVolunteerPopup()">Apply for Volunteer</a>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <!-- Know your SIH SPOC Section -->
+            <div class="footer-section">
+                <h3 class="footer-title">Know your SIH SPOC</h3>
+                <div class="management-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 400px)); justify-content: center;">
+                    <div class="management-card">
+                        <img src="images/profile/talhasir.png" class="management-photo" alt="Mohd Talha Khan">
+                        <div class="management-name">Mohd Talha Khan</div>
+                        <div class="management-role">SPOC | SIH | Director Industry Partnership & CSED</div>
+                        <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-bottom: 1rem;">Vision is to create a world-class hub for skill development and entrepreneurship—boosting employability, inspiring innovation, and driving sustainable growth.
+                        </p>
+                        <div class="contact-info">
+                            <a href="mailto:director.industry@invertis.org" class="contact-btn">📧 Email</a>
+                            <a href="https://www.linkedin.com/in/mohd-talha-khan-5995a4aa/" class="contact-btn">💼 LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Know your Faculty and Ambassadors Section -->
+            <div class="footer-section">
+                <h3 class="footer-title">Know your Faculty Advisors</h3>
+                <div class="management-grid">
+                    <div class="management-card">
+                        <img src="images/profile/hod_sir.png" class="management-photo" alt="Dr. Akash Sanghai">
+                        <div class="management-name">Dr. Akash Sanghai</div>
+                        <div class="management-role">Head of Department | Academic Block III</div>
+                        <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-bottom: 1rem;">
+                            Passionate about combining strong leadership with technical expertise, fostering engaging learning experiences and building vibrant academic communities in security technologies.
+                        </p>
+                        <div class="contact-info">
+                            <a href="mailto:asanghi@invertisuniversity.ac.in" class="contact-btn">📧 Email</a>
+                            <a href="https://linkedin.com/in/dr-akash-sanghai-029132208" class="contact-btn">💼 LinkedIn</a>
+                        </div>
+                    </div>
+                    <div class="management-card">
+                        <img src="images/profile/gaurav_sir.png" class="management-photo" alt="Dr. Gaurav Agarwal">
+                        <div class="management-name">Dr. Gaurav Agarwal</div>
+                        <div class="management-role">Department of Computer Science & Engineering</div>
+                        <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-bottom: 1rem;">
+                            leadership as Head of Department emphasizes innovation-driven education, fostering industry collaborations, and encouraging student research and entrepreneurship.
+                        </p>
+                        <div class="contact-info">
+                            <a href="mailto:agarwal@invertisuniversity.ac.in" class="contact-btn">📧 Email</a>
+                            <a href="https://www.linkedin.com/in/dr-gaurav-agarwal-25217744/" class="contact-btn">💼 LinkedIn</a>
+                        </div>
+                    </div>
+                    <div class="management-card">
+                        <img src="images/profile/kushal_sir.png" class="management-photo" alt="Dr. Kushal Johari">
+                        <div class="management-name">Dr. Kushal Johari</div>
+                        <div class="management-role">Assistant Professor | Academic Block III</div>
+                        <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-bottom: 1rem;">
+                            Passionate about creating innovative tech experiences and building strong communities in cybersecurity.
+                        </p>
+                        <div class="contact-info">
+                            <a href="mailto:kjohari@invertisuniversity.ac.in" class="contact-btn">📧 Email</a>
+                            <a href="https://linkedin.com/in/kushal-johari-114612229" class="contact-btn">💼 LinkedIn</a>
+                        </div>
+                    </div>
+                    <div class="management-card">
+                        <img src="images/profile/ashish_sir.png" class="management-photo" alt="Mr. Ashish Kumar Sharma">
+                        <div class="management-name">Mr. Ashish Kumar Sharma</div>
+                        <div class="management-role">Head of Department | Academic Block III</div>
+                        <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-bottom: 1rem;">
+                            Research interests focus on machine learning and neural networks, aiming to advance intelligent computing systems.
+                        </p>
+                        <div class="contact-info">
+                            <a href="mailto:" class="contact-btn">📧 Email</a>
+                            <a href="https://www.linkedin.com/in/ashish-sharma-a7185126a/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="contact-btn">💼 LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Know your Ambassadors Section -->
+            <div class="footer-section">
+                <h3 class="footer-title">Know your Ambassadors</h3>
+                <div class="management-grid">
+                    <div class="management-card">
+                        <img src="images/profile/aryan.jpg" class="management-photo" alt="Aryan Singh">
+                        <div class="management-name">Aryan Singh</div>
+                        <div class="management-role">Visionary | Lead Organizer</div>
+                        <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-bottom: 1rem;">
+                            Holding expertise in cybersecurity and criminology with different leading tech domains and building blocks of scripts and tools used in forensics.
+                        </p>
+                        <div class="contact-info">
+                            <a href="mailto:aryanbcai2023053@invertisuniversity.ac.in" class="contact-btn">📧 Email</a>
+                            <a href="https://linkedin.com/in/invaded-author" class="contact-btn">💼 LinkedIn</a>
+                        </div>
+                    </div>
+                    <div class="management-card">
+                        <img src="images/profile/shivam.jpg" class="management-photo" alt="Aryan Singh">
+                        <div class="management-name">Lal Shivam Singh</div>
+                        <div class="management-role">Visionary | Lead Organizer</div>
+                        <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-bottom: 1rem;">
+                            Holding expertise in development and Tier 1 comptetions with different leading tech domains blocks of fields.
+                        </p>
+                        <div class="contact-info">
+                            <a href="mailto:l.singhshivam1@gmail.com" class="contact-btn">📧 Email</a>
+                            <a href="https://www.linkedin.com/in/lal5hivamsingh/" class="contact-btn">💼 LinkedIn</a>
+                        </div>
+                    </div>
+                    <div class="management-card">
+                        <img src="images/profile/ayush.png" class="management-photo" alt="Ayush Ranjan">
+                        <div class="management-name">Ayush Ranjan</div>
+                        <div class="management-role">Visionary | Lead Organizer</div>
+                        <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-bottom: 1rem;">
+                            Expert in community outreach and establishiing connections between students and tech field domains with skills in cloud computing and cybersecurity.
+                        </p>
+                        <div class="contact-info">
+                            <a href="mailto:ayushbcai2023001@invertisuniversity.ac.in" class="contact-btn">📧 Email</a>
+                            <a href="https://linkedin.com/in/ayushranjan2504" class="contact-btn">💼 LinkedIn</a>
+                        </div>
+                    </div>
+                    <div class="management-card">
+                        <img src="images/profile/ashish.jpg" class="management-photo" alt="Ashish">
+                        <div class="management-name">Ashish</div>
+                        <div class="management-role">Visionary | Lead Organizer</div>
+                        <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-bottom: 1rem;">
+                            Expert in community outreach and establishiing connections and identical formations between students and tech communities  with skills in Comptetions regulations.
+                        </p>
+                        <div class="contact-info">
+                            <a href="mailto:as15770014@gmail.com" class="contact-btn">📧 Email</a>
+                            <a href="" class="contact-btn">💼 LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
+
+            <!-- Head Volunteers Section -->
+            <div class="footer-section">
+                <h3 class="footer-title">Know your Head Volunteers</h3>
+                <div class="volunteers-grid">
+                    <div class="volunteer-card">
+                        <img src="images/profile/shivanshu.png" class="volunteer-photo" alt="Shivanshu">
+                        <div class="volunteer-info">
+                            <div class="volunteer-name">Shivanshu</div>
+                            <div class="volunteer-position">Foundational skills in leadership, holding expertise in development</div>
+                        </div>
+                    </div>
+                    <div class="volunteer-card">
+                        <img src="images/profile/arpit.jpg" class="volunteer-photo" alt="Arpit Mathur">
+                        <div class="volunteer-info">
+                            <div class="volunteer-name">Arpit Mathur </div>
+                            <div class="volunteer-position">Unmatched skills in web and app development, holding expertise in api configuration and development</div>
+                        </div>
+                    </div>
+                    <div class="volunteer-card">
+                        <img src="images/profile/trisha.jpg" class="volunteer-photo" alt="Trisha Bhardwaj">
+                        <div class="volunteer-info">
+                            <div class="volunteer-name">Trisha Bhardwaj</div>
+                            <div class="volunteer-position">Core skills in managemnt and formation, holding expertise in building and designing</div>
+                        </div>
+                    </div>
+                    <div class="volunteer-card">
+                        <img src="images/profile/tarun.jpg" class="volunteer-photo" alt="Tarun Maurya">
+                        <div class="volunteer-info">
+                            <div class="volunteer-name">Tarun Maurya</div>
+                            <div class="volunteer-position">Profecient in universal json prompt development and AI sub domains with expertise in web development</div>
+                        </div>
+                </div>
+            </div>
+            <!-- Volunteers Section -->
+             <div class="footer-section">
+                <h3 class="footer-title">Know your Volunteers</h3>
+                <div class="volunteers-grid">
+                    <div class="volunteer-card-pink">
+                        <img src="images/profile/temp.jpg" class="volunteer-photo-pink" alt="Abhinav Jagtap"><div class="volunteer-info"><div class="volunteer-name">Abhinav Jagtap</div>
+                        <div class="volunteer-position">Volunteer</div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <!-- About CrewXIAL Section -->
+            <div class="footer-section">
+                <h3 class="footer-title"></h3>
+                <div class="content-section">
+                    <h2 class="section-title">About CrewXIAL</h2>
+                    <p class="section-content">CrewXIAL, founded by Industry experts under the guidance of Director Industry Partnership & CSED Mohd Talha Khan sir and Dr. Akash Sanghai sir (HOD Academic Block 3), is a student-driven initiative that empowers passionate learners to gain recognition through innovation and real-world exposure. We organize hackathons, seminars, webinars, and on-campus events to bridge the gap between academics and industry expertise.</p>
+                </div>
+            </div>
+
+            <!-- What We Do Section -->
+            <div class="footer-section">
+                <h3 class="footer-title"></h3>
+                <div class="content-section">
+                    <h2 class="section-title">What We Do</h2>
+                    <p class="section-content">At CrewXIAL, we curate, conduct and participate in innovative hackathons, webinars, conferences, and networking events that connect academia with industry. Focused on cybersecurity and emerging technologies, our platform fuels innovation, learning, and career growth for aspiring tech enthusiasts.</p>
+                </div>
+            </div>
+
+            <!-- Past Successful Events Section -->
+            <div class="footer-section">
+                <h3 class="footer-title"></h3>
+                <div class="content-section">
+                    <h2 class="section-title">Past Successful Events</h2>
+                    <p class="section-content">CrewXIAL has actively participated in some of the most recognized hackathons and tech events across the country. Our journey includes contributions to the Hack2Skill Innovation Hackathon, Gemini CLI Home API Hackathon, Geekverse Hackathon, GDG Campus Solutions, and the Invertis Techathon. We also proudly represented ourselves at the Convergence India Expo 2025, reflecting our commitment to innovation, collaboration, and real-world impact in the fields of cybersecurity and emerging technologies.</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p id="footerText"></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Volunteer Program Popup -->
+    <div class="volunteer-popup" id="volunteerPopup">
+        <div class="volunteer-container">
+            <button class="close-popup" onclick="closeVolunteerPopup()">×</button>
+            <h2 class="volunteer-title">Volunteer Program</h2>
+            
+            <div class="volunteer-section">
+                <h3 class="volunteer-title">Introduction</h3>
+                <p class="volunteer-content">
+                    Join our dynamic volunteer program and become an integral part of CrewXIAl's tech community! 
+                    Our volunteer program offers students and tech enthusiasts the opportunity to gain hands-on 
+                    experience in event management, network with industry professionals, and develop valuable 
+                    skills while contributing to exciting tech events.
+                </p>
+            </div>
+            
+            <div class="volunteer-section">
+                <h3 class="volunteer-title">Benefits</h3>
+                <ul class="benefits-list volunteer-content">
+                    <li>Exclusive access to all CrewXIAl events and workshops</li>
+                    <li>Networking opportunities with industry professionals</li>
+                    <li>Certificate of participation and letter of recommendation</li>
+                    <li>Develop leadership and organizational skills</li>
+                    <li>Priority consideration for internships and job opportunities</li>
+                    <li>Free swag and merchandise from our partners</li>
+                    <li>Behind-the-scenes experience in tech event management</li>
+                </ul>
+            </div>
+            
+            <div class="volunteer-section">
+                <h3 class="volunteer-title">Roles & Responsibilities</h3>
+                <p class="volunteer-content">
+                    As a CrewXIAl volunteer, you'll be involved in various aspects of event planning and execution. 
+                    Responsibilities may include event setup, registration management, speaker coordination, 
+                    social media promotion, technical support, and participant engagement. Volunteers are 
+                    expected to commit to at least 2 events per semester and attend mandatory training sessions.
+                </p>
+            </div>
+            
+            <div class="volunteer-section">
+                <h3 class="volunteer-title">Ethical Guidelines</h3>
+                <p class="volunteer-content">
+                    All volunteers must adhere to our code of conduct which includes maintaining professionalism, 
+                    respecting diversity and inclusion, protecting confidential information, avoiding conflicts 
+                    of interest, and representing CrewXIAl positively at all times. Violations may result in 
+                    termination from the volunteer program.
+                </p>
+            </div>
+            
+            <div class="volunteer-buttons">
+                <a href="https://forms.gle/oCjhJUv8npy4Y3Tu6" class="volunteer-btn-popup">Apply for Volunteer</a>
+                <a href="#" class="volunteer-btn-popup goodies-btn" onclick="showGoodiesPopup()">Volunteer Goodies</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Hero Quote Typing Effect (Infinite)
+        function startInfiniteTypingEffect() {
+            const text = '"Every challenge is an opportunity to grow so Keep pushing, as we\'re almost there"';
+            const heroElement = document.getElementById('heroQuote');
+            let i = 0;
+            let isDeleting = false;
+            let typingSpeed = 100; // Normal typing speed
+            let deleteSpeed = 50; // Faster deleting speed
+            
+            function typeWriter() {
+                const currentText = text.substring(0, i);
+                heroElement.textContent = currentText;
+                
+                if (!isDeleting && i === text.length) {
+                    // Pause at end of typing
+                    setTimeout(() => {
+                        isDeleting = true;
+                        typeWriter();
+                    }, 1500);
+                    return;
+                }
+                
+                if (isDeleting && i === 0) {
+                    // Pause at start after deleting
+                    isDeleting = false;
+                    setTimeout(typeWriter, 500);
+                    return;
+                }
+                
+                if (isDeleting) {
+                    i--;
+                    typingSpeed = deleteSpeed;
+                } else {
+                    i++;
+                    typingSpeed = 100 + Math.random() * 50; // Slight variation for natural feel
+                }
+                
+                setTimeout(typeWriter, typingSpeed);
+            }
+            
+            heroElement.textContent = '';
+            typeWriter();
+        }
+
+        // Footer Typing Effect (Infinite)
+        function startFooterTypingEffect() {
+            const text = "© 2025 CrewXIAl. All rights reserved. equipping with the next generation of tech innovators.";
+            const footerElement = document.getElementById('footerText');
+            let i = 0;
+            let isDeleting = false;
+            let typingSpeed = 100;
+            let deleteSpeed = 30;
+            
+            function typeWriter() {
+                const currentText = text.substring(0, i);
+                footerElement.textContent = currentText;
+                
+                if (!isDeleting && i === text.length) {
+                    setTimeout(() => {
+                        isDeleting = true;
+                        typeWriter();
+                    }, 2000);
+                    return;
+                }
+                
+                if (isDeleting && i === 0) {
+                    isDeleting = false;
+                    setTimeout(typeWriter, 1000);
+                    return;
+                }
+                
+                if (isDeleting) {
+                    i--;
+                    typingSpeed = deleteSpeed;
+                } else {
+                    i++;
+                    typingSpeed = 80 + Math.random() * 40;
+                }
+                
+                setTimeout(typeWriter, typingSpeed);
+            }
+            
+            footerElement.textContent = '';
+            typeWriter();
+        }
+
+
+
+        // Volunteer Program Popup
+        function showVolunteerPopup() {
+            document.getElementById('volunteerPopup').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeVolunteerPopup() {
+            document.getElementById('volunteerPopup').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+
+
+
+
+        // Background Gallery Functionality
+        function initBackgroundGallery() {
+            const images = document.querySelectorAll('.gallery-image');
+            const indicators = document.querySelectorAll('.gallery-indicator');
+            let currentIndex = 0;
+            
+            function showImage(index) {
+                // Hide all images
+                images.forEach(img => img.classList.remove('active'));
+                indicators.forEach(ind => ind.classList.remove('active'));
+                
+                // Show current image and indicator
+                images[index].classList.add('active');
+                indicators[index].classList.add('active');
+            }
+            
+            function nextImage() {
+                currentIndex = (currentIndex + 1) % images.length;
+                showImage(currentIndex);
+            }
+            
+            // Auto-advance every 2 seconds
+            setInterval(nextImage, 2000);
+            
+            // Click indicators to navigate
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    currentIndex = index;
+                    showImage(currentIndex);
+                });
+            });
+        }
+
+        // Start effects when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            startInfiniteTypingEffect();
+            startFooterTypingEffect();
+            initBackgroundGallery();
+            
+            // Show popup after a short delay
+            setTimeout(() => {
+                const popup = document.getElementById('topPopup');
+                popup.style.display = 'block';
+            }, 1000);
+
+            // Note: nav-menu-item is now a direct link to hackathon.html
+
+            // Mobile-specific optimizations
+            initMobileOptimizations();
+        });
+
+        // Mobile optimizations
+        function initMobileOptimizations() {
+            // Prevent zoom on double tap for iOS
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function (event) {
+                const now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+
+            // Add touch feedback for buttons
+            const touchElements = document.querySelectorAll('.action-btn, .volunteer-btn, .volunteer-btn-popup, .contact-btn');
+            touchElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.95)';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.transform = '';
+                });
+            });
+
+            // Optimize scroll performance on mobile
+            let ticking = false;
+            function updateScroll() {
+                ticking = false;
+                // Any scroll-based animations can go here
+            }
+
+            function requestTick() {
+                if (!ticking) {
+                    requestAnimationFrame(updateScroll);
+                    ticking = true;
+                }
+            }
+
+            window.addEventListener('scroll', requestTick, { passive: true });
+
+
+
+            // Optimize images for mobile
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.addEventListener('load', function() {
+                    this.style.opacity = '1';
+                });
+                
+                // Add loading state
+                if (!img.complete) {
+                    img.style.opacity = '0';
+                    img.style.transition = 'opacity 0.3s ease';
+                }
+            });
+
+            // Mobile-specific performance optimizations
+            if ('serviceWorker' in navigator) {
+                // Register service worker for offline functionality
+                navigator.serviceWorker.register('/sw.js').catch(() => {
+                    // Service worker registration failed, continue without it
+                });
+            }
+
+            // Optimize for mobile battery life
+            if ('getBattery' in navigator) {
+                navigator.getBattery().then(battery => {
+                    if (battery.level < 0.2) {
+                        // Reduce animations on low battery
+                        document.body.classList.add('low-battery');
+                    }
+                });
+            }
+
+            // Mobile-specific event handling
+            let isScrolling = false;
+            window.addEventListener('scroll', () => {
+                isScrolling = true;
+                setTimeout(() => {
+                    isScrolling = false;
+                }, 100);
+            }, { passive: true });
+
+            // Optimize touch events
+            document.addEventListener('touchmove', (e) => {
+                if (isScrolling) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+
+            // Mobile-friendly popup handling
+            const popups = document.querySelectorAll('.volunteer-popup');
+            popups.forEach(popup => {
+                popup.addEventListener('touchstart', (e) => {
+                    e.stopPropagation();
+                });
+            });
+
+            // Mobile keyboard handling
+            window.addEventListener('resize', () => {
+                if (window.innerHeight < window.innerWidth) {
+                    // Landscape mode
+                    document.body.classList.add('landscape');
+                } else {
+                    document.body.classList.remove('landscape');
+                }
+            });
+
+            // Mobile-specific error handling
+            window.addEventListener('error', (e) => {
+                console.log('Mobile error:', e.error);
+                // Graceful degradation for mobile
+            });
+        }
+
+        // Notification animation
+        const notifications = [
+            "🕹️ Indian Army CyberSecurity Bug Hunting and Datathon being organised this month. Register now! ",
+            "🎯 Google Gen Al Exchange hackathon in september, Register now!",
+            "💻 NASA Space apps challenge in september, Register now!",
+            "🏆 Microsoft Innoquest 2025 in september, Register now!",
+            "🕹️ Microsoft TroubleShoot Ideathon in september, Register now!",
+            "🎯 NVIDIA and IIT Bombay Open India Hackathon in september, Register now!"
+        ];
+
+        let currentNotification = 0;
+        setInterval(() => {
+            const notificationText = document.querySelector('.notification-text');
+            notificationText.textContent = notifications[currentNotification];
+            currentNotification = (currentNotification + 1) % notifications.length;
+        }, 4000);
+
+        // Add scroll animations
+        function animateOnScroll() {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        // Initial setup for scroll animations
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        });
+
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll(); // Initial call
+        // Goodies Popup Functions
+        function showGoodiesPopup() {
+            fetch('volunteergoodies.html')
+            .then(response => response.text())
+             .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const goodiesContent = doc.querySelector('main').innerHTML;
+                document.getElementById('goodiesContent').innerHTML = goodiesContent;
+                document.getElementById('goodiesPopup').classList.add('active');
+                document.body.style.overflow = 'hidden';
+                // Re-apply animations to loaded content
+                animateGoodiesItems();
+            })
+            .catch(error => {
+                console.error('Error loading goodies:', error);
+                alert('Could not load volunteer goodies. Please try again.');
+            });
+        }
+        function closeGoodiesPopup() {
+            document.getElementById('goodiesPopup').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        function animateGoodiesItems() {
+            const goodieItems = document.querySelectorAll('.goodie-item');
+            goodieItems.forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(30px)';
+                item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            });
+            setTimeout(() => {
+                goodieItems.forEach(item => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                });
+            }, 100);
+        }
+        //Update the goodies button in the volunteer popup
+        document.querySelector('.goodies-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            closeVolunteerPopup();
+            showGoodiesPopup();
+        });
+    </script>
+        <!-- Volunteer Goodies Popup -->
+         <div class="volunteer-popup"
+         id="goodiesPopup">
+         <div class="volunteer-container">
+            <button class="close-popup" onclick="closeGoodiesPopup()">×</button>
+            <div class="volunteer-content" id="goodiesContent">
+                <!-- Content will be loaded from volunteergoodies.html -->
+                </div>
+            </div>
+        </div>
+</body>
+</html>
